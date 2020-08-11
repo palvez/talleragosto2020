@@ -84,8 +84,11 @@
       state: started
       enabled: yes
     when: ansible_facts['distribution'] == "CentOS"
+    loop:
+      - apache2
+    when: ansible_facts['distribution'] == "Ubuntu"
 
-  - name: Configure firewall
+  - name: Configure firewall in CentOS
     firewalld:
       service: "{{ item }}"
       state: enabled
@@ -94,11 +97,30 @@
     loop:
       - http
       - https
+    when: ansible_facts['distribution'] == "CentOS"
+
+  - name: Configure firewall in Ubuntu
+    ufw:
+      rule: allow
+      port: "{{ item }}"
+      proto: tcp
+    loop:
+      - 80
+      - 443
+    when: ansible_facts['distribution'] == "Ubuntu"
 
   handlers:
-  - name: Restart httpd
+  - name: Restart Apache in CentOS
     service:
-      name: "{{ packages }}"
+      name: httpd
       state: restarted
       enabled: yes
+    when: ansible_facts['distribution'] == "CentOS"
 
+  handlers:
+  - name: Restart Apache in Ubuntu
+    service:
+      name: apache2
+      state: restarted
+      enabled: yes
+    when: ansible_facts['distribution'] == "Ubuntu"
