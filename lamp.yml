@@ -7,14 +7,14 @@
     - "./variables.yml"
 
   tasks:
-  - name: Install LAMP software
+  - name: Install Apache CentOS
     yum: 
       name: "{{ packages }}"
       state: latest
     when: ansible_facts['distribution'] == "CentOS"
 
   tasks:
-  - name: Install LAMP software
+  - name: Install Apache Ubuntu
     apt: 
       name: "{{ packages }}"
       state: latest
