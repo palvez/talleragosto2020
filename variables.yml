@@ -1,0 +1,6 @@
+---
+packages: 
+      - httpd
+    sitio: ndeah
+    server: www.ndeah.com.uy
+    hostmaster: admin@ndeah.com.uy
