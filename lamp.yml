@@ -43,7 +43,7 @@
 
   - name: Add virtualhost config directory to http.conf in Ubuntu
     lineinfile:
-      path: /etc/apache2/conf/apache2.conf
+      path: /etc/apache2/httpd.conf
       line: IncludeOptional conf.d/*.conf
     when: ansible_facts['distribution'] == "Ubuntu"
 
