@@ -13,10 +13,9 @@
       state: latest
     when: ansible_facts['distribution'] == "CentOS"
 
-  tasks:
   - name: Install Apache Ubuntu
     apt: 
-      name: "{{ packages }}"
+      pkg: apache2
       state: latest
     when: ansible_facts['distribution'] == "Ubuntu"
 
