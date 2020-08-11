@@ -1,2 +1,30 @@
 ---
 # tasks file for roles/ansible-centos
+  tasks:
+  - name: Install Apache CentOS
+    yum: 
+      name: httpd
+      state: latest
+      
+  - name: Start and enable apache
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+      
+  - name: Configure firewall in CentOS
+    firewalld:
+      service: "{{ item }}"
+      state: enabled
+      permanent: yes
+      immediate: yes
+    loop:
+      - http
+      - https
+      
+  handlers:
+  - name: Restart Apache in CentOS
+    service:
+      name: httpd
+      state: restarted
+      enabled: yes
