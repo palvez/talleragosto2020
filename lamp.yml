@@ -19,17 +19,33 @@
       state: latest
     when: ansible_facts['distribution'] == "Ubuntu"
 
-  - name: Create virtualhost config directory
+  - name: Create virtualhost config directory in CentOS
     file:
       path: /etc/httpd/vhost.d
       state: directory
       mode: '0755'
       owner: root
+    when: ansible_facts['distribution'] == "CentOS" 
 
-  - name: Add virtualhost config directory to http.conf
+  - name: Create virtualhost config directory in Ubuntu
+    file:
+      path: /etc/apache2/vhost.d
+      state: directory
+      mode: '0755'
+      owner: root
+    when: ansible_facts['distribution'] == "Ubuntu"
+
+  - name: Add virtualhost config directory to http.conf in Centos
     lineinfile: 
       path: /etc/httpd/conf/httpd.conf
       line: IncludeOptional vhost.d/*.conf
+    when: ansible_facts['distribution'] == "CentOS"
+
+  - name: Add virtualhost config directory to http.conf in Ubuntu
+    lineinfile:
+      path: /etc/apache2/conf/apache2.conf
+      line: IncludeOptional vhost.d/*.conf
+    when: ansible_facts['distribution'] == "Ubuntu"
 
   - name: Create virtualhost content directories
     file:
@@ -44,13 +60,23 @@
       - /var/www/{{ sitio }}/html
       - /var/www/{{ sitio }}/cgi-bin
 
-  - name: Create virtualhost configuration
+  - name: Create virtualhost configuration in CentOS
     template: 
       src: templates/{{ sitio }}.j2
       dest: /etc/httpd/vhost.d/{{ sitio }}.conf
       owner: root
       mode: '0644'
     notify: Restart httpd
+    when: ansible_facts['distribution'] == "CentOS"
+
+  - name: Create virtualhost configuration in Ubuntu
+    template:
+      src: templates/{{ sitio }}.j2
+      dest: /etc/apache2/vhost.d/{{ sitio }}.conf
+      owner: root
+      mode: '0644'
+    notify: Restart apache2
+    when: ansible_facts['distribution'] == "Ubuntu"
 
   - name: Start and enable apache
     service:
