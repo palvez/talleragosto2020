@@ -11,17 +11,3 @@
     when: ansible_facts['os_family'] == "RedHat"
   - role: apache-ubuntu
     when: ansible_facts['os_family'] == "Debian"
-
-  tasks:
-  - name: Create virtualhost content directories
-    file:
-      path: "{{ item }}"
-      recurse: yes
-      state: directory
-      owner: apache
-      group: apache
-      mode: '0755'
-    loop:
-      - /var/www/{{ sitio }}
-      - /var/www/{{ sitio }}/html
-      - /var/www/{{ sitio }}/cgi-bin
