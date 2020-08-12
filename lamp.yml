@@ -6,14 +6,14 @@
   vars_files:
     - "./variables.yml"
 
- roles:
-- role: apache-centos
-  when: ansible_facts['os_family'] == "RedHat"
+  roles:
+  - role: apache-centos
+    when: ansible_facts['os_family'] == "RedHat"
   
-- role: apache-ubuntu
-  when: ansible_facts['os_family'] == "Debian"
+  - role: apache-ubuntu
+    when: ansible_facts['os_family'] == "Debian"
 
-tasks:
+  tasks:
   - name: Create virtualhost content directories
     file:
       path: "{{ item }}"
