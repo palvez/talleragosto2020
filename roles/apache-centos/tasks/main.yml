@@ -25,13 +25,25 @@
       owner: root
       mode: '0644'
     notify: Restart httpd
+    
+  - name: Create virtualhost content directories
+    file:
+      path: "{{ item }}"
+      recurse: yes
+      state: directory
+      owner: apache
+      group: apache
+      mode: '0755'
+    loop:
+      - /var/www/{{ sitio }}
+      - /var/www/{{ sitio }}/html
+      - /var/www/{{ sitio }}/cgi-bin
 
   - name: Start and enable apache
     service:
       name: httpd
       state: started
       enabled: yes
-  
 
   - name: Configure firewall
     firewalld:
