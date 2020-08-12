@@ -9,7 +9,6 @@
   roles:
   - role: apache-centos
     when: ansible_facts['os_family'] == "RedHat"
-  
   - role: apache-ubuntu
     when: ansible_facts['os_family'] == "Debian"
 
