@@ -1,37 +1,38 @@
 ---
-# tasks file for roles/ansible-centos
-  - name: Install Apache CentOS
+# tasks file for roles/apache-centos
+
+  - name: Install LAMP software
     yum: 
       name: httpd
       state: latest
-      
-  - name: Create virtualhost config directory in CentOS
+
+  - name: Create virtualhost config directory
     file:
       path: /etc/httpd/vhost.d
       state: directory
       mode: '0755'
       owner: root
 
-  - name: Add virtualhost config directory to http.conf in Centos
+  - name: Add virtualhost config directory to http.conf
     lineinfile: 
       path: /etc/httpd/conf/httpd.conf
       line: IncludeOptional vhost.d/*.conf
-      
-  - name: Create virtualhost configuration in CentOS
+
+  - name: Create virtualhost configuration
     template: 
-      src: ./templates/{{ sitio }}.j2
+      src: templates/{{ sitio }}.j2
       dest: /etc/httpd/vhost.d/{{ sitio }}.conf
       owner: root
       mode: '0644'
     notify: Restart httpd
-    
+
   - name: Start and enable apache
     service:
       name: httpd
       state: started
       enabled: yes
-      
-  - name: Configure firewall in CentOS
+
+  - name: Configure firewall
     firewalld:
       service: "{{ item }}"
       state: enabled
@@ -40,10 +41,3 @@
     loop:
       - http
       - https
-      
-  handlers:
-  - name: Restart Apache in CentOS
-    service:
-      name: httpd
-      state: restarted
-      enabled: yes
