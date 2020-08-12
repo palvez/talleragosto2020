@@ -15,7 +15,7 @@
   
 
   - name: Configure firewall
-    uwf:
+    ufw:
       rule: allow
       port: "{{ item }}"
       state: enabled
