@@ -1,5 +1,5 @@
 ---
-# tasks file for roles/apache-centos
+# tasks file for roles/apache-ubuntu
 
   - name: Install apache server sofware
     apt: 
@@ -12,7 +12,6 @@
       name: apache2
       state: started
       enabled: yes
-  
 
   - name: Configure firewall
     ufw:
