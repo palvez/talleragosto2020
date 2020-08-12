@@ -20,7 +20,7 @@
 
   - name: Create virtualhost configuration
     template: 
-      src: templates/{{ sitio }}.j2
+      src: ./templates/httpd.j2
       dest: /etc/httpd/vhost.d/{{ sitio }}.conf
       owner: root
       mode: '0644'
