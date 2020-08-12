@@ -1,2 +1,22 @@
 ---
 # tasks file for roles/apache-ubuntu
+  tasks:
+  - name: Install Apache Ubuntu
+   apt: 
+     name: apache2
+     state: latest
+      
+  - name: Configure firewall in Ubuntu
+    ufw:
+      rule: allow
+      port: "{{ item }}"
+      proto: tcp
+    loop:
+      - 80
+      - 443
+
+  - name: Restart Apache in Ubuntu
+    service:
+      name: apache2
+      state: restarted
+      enabled: yes      
