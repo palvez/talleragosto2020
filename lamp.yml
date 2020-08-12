@@ -9,41 +9,11 @@
 roles:
 - role: apache-centos
   when: ansible_facts['os_family'] == "RedHat"
+  
+- role: apache-ubuntu
+  when: ansible_facts['os_family'] == "Debian"
 
-  - name: Install Apache Ubuntu
-    apt: 
-      pkg: apache2
-      state: latest
-    when: ansible_facts['distribution'] == "Ubuntu"
-
-  - name: Create virtualhost config directory in CentOS
-    file:
-      path: /etc/httpd/vhost.d
-      state: directory
-      mode: '0755'
-      owner: root
-    when: ansible_facts['distribution'] == "CentOS" 
-
-  - name: Create virtualhost config directory in Ubuntu
-    file:
-      path: /etc/apache2/conf.d
-      state: directory
-      mode: '0755'
-      owner: root
-    when: ansible_facts['distribution'] == "Ubuntu"
-
-  - name: Add virtualhost config directory to http.conf in Centos
-    lineinfile: 
-      path: /etc/httpd/conf/httpd.conf
-      line: IncludeOptional vhost.d/*.conf
-    when: ansible_facts['distribution'] == "CentOS"
-
-  - name: Add virtualhost config directory to http.conf in Ubuntu
-    lineinfile:
-      path: /etc/apache2/httpd.conf
-      line: IncludeOptional conf.d/*.conf
-    when: ansible_facts['distribution'] == "Ubuntu"
-
+tasks:
   - name: Create virtualhost content directories
     file:
       path: "{{ item }}"
@@ -56,38 +26,3 @@ roles:
       - /var/www/{{ sitio }}
       - /var/www/{{ sitio }}/html
       - /var/www/{{ sitio }}/cgi-bin
-
-  - name: Create virtualhost configuration in CentOS
-    template: 
-      src: templates/{{ sitio }}.j2
-      dest: /etc/httpd/vhost.d/{{ sitio }}.conf
-      owner: root
-      mode: '0644'
-    notify: Restart httpd
-    when: ansible_facts['distribution'] == "CentOS"
-
-  - name: Create virtualhost configuration in Ubuntu
-    template:
-      src: templates/{{ sitio }}.j2
-      dest: /etc/apache2/vhost.d/{{ sitio }}.conf
-      owner: root
-      mode: '0644'
-    notify: Restart apache2
-    when: ansible_facts['distribution'] == "Ubuntu"
-
-  - name: Configure firewall in Ubuntu
-    ufw:
-      rule: allow
-      port: "{{ item }}"
-      proto: tcp
-    loop:
-      - 80
-      - 443
-    when: ansible_facts['distribution'] == "Ubuntu"
-
-  - name: Restart Apache in Ubuntu
-    service:
-      name: apache2
-      state: restarted
-      enabled: yes
-    when: ansible_facts['distribution'] == "Ubuntu"
