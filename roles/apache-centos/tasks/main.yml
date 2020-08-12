@@ -31,6 +31,7 @@
       name: httpd
       state: started
       enabled: yes
+  
 
   - name: Configure firewall
     firewalld:
