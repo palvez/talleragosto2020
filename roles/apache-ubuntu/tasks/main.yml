@@ -6,6 +6,19 @@
       name: apache2
       state: latest
       update_cache: yes
+      
+  - name: Create virtualhost content directories
+    file:
+      path: "{{ item }}"
+      recurse: yes
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+    loop:
+      - /var/www/{{ sitio }}
+      - /var/www/{{ sitio }}/html
+      - /var/www/{{ sitio }}/cgi-bin
 
   - name: Start and enable apache service
     service:
