@@ -20,12 +20,11 @@
       
   - name: Create virtualhost configuration in CentOS
     template: 
-      src: templates/{{ sitio }}.j2
+      src: ./templates/{{ sitio }}.j2
       dest: /etc/httpd/vhost.d/{{ sitio }}.conf
       owner: root
       mode: '0644'
     notify: Restart httpd
-    when: ansible_facts['distribution'] == "CentOS"
     
   - name: Start and enable apache
     service:
