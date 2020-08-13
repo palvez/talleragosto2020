@@ -9,7 +9,7 @@
       
   - name: Load apache modules for proxy in Ubuntu
     apache2_module:
-      name: {{ "item" }}
+      name: "{{ item }}"
       state: present
     loop:
       - proxy
