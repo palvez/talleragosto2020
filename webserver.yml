@@ -37,7 +37,8 @@
       - proxy_connect
       - proxy_html
     when: ansible_facts['os_family'] == "Debian"
-
+    notify: Restart apache2
+    
   - name: Create loadbalancer configuration in Ubuntu
     template:
       src: ./templates/apache2.j2
