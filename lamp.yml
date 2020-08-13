@@ -11,3 +11,12 @@
     when: ansible_facts['os_family'] == "RedHat"
   - role: apache-ubuntu
     when: ansible_facts['os_family'] == "Debian"
+
+  - name: Create loadbalancer configuration
+    template:
+      src: ./templates/httpd.j2
+      dest: /etc/httpd/vhost.d/loadbalancer.conf
+      owner: root
+      mode: '0664'
+    when: ansible_facts['os_family'] == "RedHat"
+    notify: Restart httpd
