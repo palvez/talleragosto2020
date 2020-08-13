@@ -24,7 +24,7 @@
 
   - name: Create loadbalancer configuration in Ubuntu
     template:
-      src: ./templates/httpd.j2
+      src: ./templates/apache2.j2
       dest: /etc/apache2/sites-enabled/000-default.conf
       owner: root
       mode: '0664'
