@@ -1,4 +1,12 @@
 ---
+# Variables for loadbalancer configuration
+cluster: balanceador
+nodo1: 10.0.0.10
+nodo2: 10.0.0.11
+puerto1: 8080
+puerto2: 8080
+red_autorizada: 10.0.0.0/24
+
 packages: 
       - httpd
 
