@@ -16,9 +16,8 @@
       group: root
       mode: '0755'
     loop:
-      - /var/www/{{ sitio }}
-      - /var/www/{{ sitio }}/html
-      - /var/www/{{ sitio }}/cgi-bin
+      - /var/www/html/{{ sitio }}
+      - /var/www/html/{{ sitio }}/cgi-bin
 
   - name: Start and enable apache service
     service:
