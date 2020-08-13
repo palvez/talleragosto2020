@@ -36,6 +36,7 @@
       - proxy_balancer
       - proxy_connect
       - proxy_html
+    when: ansible_facts['os_family'] == "Debian"
 
   - name: Create loadbalancer configuration in Ubuntu
     template:
