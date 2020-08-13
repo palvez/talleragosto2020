@@ -21,7 +21,6 @@
       - proxy_balancer
       - proxy_connect
       - proxy_html
-    notify: Restart apache2
       
   - name: Create virtualhost content directories
     file:
