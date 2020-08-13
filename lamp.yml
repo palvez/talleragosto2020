@@ -12,6 +12,7 @@
   - role: apache-ubuntu
     when: ansible_facts['os_family'] == "Debian"
 
+  tasks:
   - name: Create loadbalancer configuration
     template:
       src: ./templates/httpd.j2
