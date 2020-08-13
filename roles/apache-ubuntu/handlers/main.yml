@@ -1,2 +1,8 @@
 ---
-# handlers file for roles/apache-ubuntu
+# handlers file for roles/ansible-ubuntu
+#
+- name: Restart apache
+  service:
+    name: apache2
+    state: restarted
+    enabled: yes
