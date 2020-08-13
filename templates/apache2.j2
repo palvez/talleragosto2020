@@ -9,15 +9,8 @@
 </Proxy>
 
 <VirtualHost *:80>
-  ProxyPreserveHost On
-  ProxyPass /balancer-manager !
   ProxyPass / balancer://{{cluster}}/
   ProxyPassReverse / http://{{cluster}}/
-
-  <Location "/balancer-manager">
-      SetHandler balancer-manager
-      Require ip {{ red_autorizada }}
-  </Location>
 
   ServerName {{ server }}
   ServerAdmin {{ hostmaster }}
