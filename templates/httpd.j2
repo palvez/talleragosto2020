@@ -9,7 +9,7 @@
 
 <VirtualHost *:80>
   ProxyPreserveHost On
-  Proxy Pass /balancer-manager !
+  Proxy Pass / balancer-manager !
   ProxyPass / balancer://{{cluster}}/
   ProxyPassReverse / http://{{cluster}}/
 
