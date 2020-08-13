@@ -1,17 +1,22 @@
-<Proxy balancer://mycluster>
+<Proxy balancer://{{cluster}}>
 
     # Server 1
-    BalancerMember http://10.0.0.10/
+    BalancerMember http://{{ nodo1 }}:{{ puerto1 }}/
 
     # Server 2
-    BalancerMember http://10.0.0.11/
+    BalancerMember http://{{ nodo2 }}:{{ puerto2 }}/
 </Proxy>
 
 <VirtualHost *:80>
   ProxyPreserveHost On
+  Proxy Pass /balancer-manager !
+  ProxyPass / balancer://{{cluster}}/
+  ProxyPassReverse / http://{{cluster}}/
 
-  ProxyPass / balancer://mycluster
-  ProxyPassReverse / http://{{ server }}
+  <Location "/balancer-manager">
+      SetHandler balancer-manager
+      Require ip {{ red_autorizada }}
+  </Location>
 
   ServerName {{ server }}
   ServerAdmin {{ hostmaster }}
@@ -24,4 +29,3 @@
     Require all granted
   </Directory>
 </VirtualHost>
-
