@@ -29,13 +29,7 @@
     loop:
       - proxy
       - proxy_http
-      - proxy_ajp
-      - rewrite
-      - deflate
-      - headers
       - proxy_balancer
-      - proxy_connect
-      - proxy_html
     when: ansible_facts['os_family'] == "Debian"
     notify: Restart apache2
     
