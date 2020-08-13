@@ -8,10 +8,9 @@
       update_cache: yes
       
   - name: Load apache modules for proxy in Ubuntu
-    become: yes
-    become_method: sudo
-    command:
-      cmd: a2enmod {{ "item" }}
+    apache2_module:
+      name: {{ "item" }}
+      state: present
     loop:
       - proxy
       - proxy_http
