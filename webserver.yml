@@ -24,10 +24,8 @@
 
   - name: Load apache modules for proxy in Ubuntu
     apache2_module:
-      name: "{{ item }}"
+      name: proxy
       state: present
-    loop:
-      - proxy
     when: ansible_facts['os_family'] == "Debian"
     notify: Restart apache2
     
