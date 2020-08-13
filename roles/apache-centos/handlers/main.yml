@@ -1,7 +1,7 @@
 ---
 # handlers file for roles/ansible-centos
 #
-- name: Restart apache
+- name: Restart httpd
   service:
     name: httpd
     state: restarted
