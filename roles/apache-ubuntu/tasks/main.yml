@@ -9,7 +9,7 @@
       
   - name: Load apache modules for proxy in Ubuntu
     command:
-      cmd: a2enmod {{ "item" }}
+      cmd: sudo a2enmod {{ "item" }}
     loop:
       - proxy
       - proxy_http
