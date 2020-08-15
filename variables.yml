@@ -6,10 +6,6 @@ nodo2: 10.0.0.11
 puerto1: 8080
 puerto2: 8080
 red_autorizada: 10.0.0.0/24
-
-packages: 
-      - httpd
-
 sitio: ndeah
 server: www.ndeah.com.uy
 hostmaster: admin@ndeah.com.uy
