@@ -1,7 +1,7 @@
-Role Name
+Descripción
 =========
 
-A brief description of the role goes here.
+Este rol instala y configura el servicio httpd en CentOS 7. Además, configura el firewall para que funcione la aplicación correctamente.
 
 Requirements
 ------------
